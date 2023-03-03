@@ -11,8 +11,13 @@ class Custombox:
 
         def calculate():
             self.c.exp = self.entry.get()  # storing data from entry box onto variable
-            self.c.evaluate()
-            a.change('Result is: {:.6f}'.format(self.c.op))
+            if "x" in self.c.exp:
+                x1, x2 = self.c.quadratic()
+                a.change(
+                    "The values of x are : {:.6f} and {:.6f}".format(x1, x2))
+            else:
+                self.c.evaluate()
+                a.change('Result is: {:.6f}'.format(self.c.op))
 
         def graph():
             self.c.exp = self.entry.get()
