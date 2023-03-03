@@ -43,3 +43,35 @@ class Calculator:
         plt.title("graph of y={}".format(self.exp))
         plt.tight_layout()
         plt.show()
+
+    def parse_equation(self):
+        nums = [0, 0, 0]
+        accum = ''
+        expo = False
+        sign = 1
+        for c in self.exp:
+            if expo and c == '2':
+                expo = False
+                nums[0] = nums[1]
+                nums[1] = 0
+                accum = ''
+            elif c in '1234567890.':
+                accum += c
+            elif c == 'x':
+                nums[1] = float(accum) * sign
+                accum = ''
+            elif c == '+':
+                sign = 1
+            elif c == '-':
+                sign = -1
+            elif c == '^':
+                expo = True
+        nums[2] = float(accum) * sign
+        return nums
+
+    def quadratic(self):
+        [a, b, c] = self.parse_equation()
+        x1 = (-b+((b**2)-(4*a*c))**0.5)/(2*a)
+        x2 = (-b-((b**2)-(4*a*c))**0.5)/(2*a)
+        return x1, x2
+
